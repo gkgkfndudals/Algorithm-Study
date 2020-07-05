@@ -1,0 +1,42 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Stack;
+
+public class Main {
+	static String S;
+	static Stack<Integer> l_stack = new Stack<Integer>();
+	static Stack<Integer> r_stack = new Stack<Integer>();
+	static int ans;
+	
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		S = br.readLine();
+		
+		for(int i=0; i<S.length(); i++) {
+			
+			if(S.charAt(i)=='(') {
+				l_stack.push(i);
+			}
+			else if(S.charAt(i)==')') {
+				r_stack.push(i);
+			}
+		}
+		
+		func(0, S.length());
+		
+		System.out.println(ans);
+	}
+	
+	static void func(int start, int end) {
+		System.out.println(end);
+			
+			
+			
+		
+	}
+	
+	
+}

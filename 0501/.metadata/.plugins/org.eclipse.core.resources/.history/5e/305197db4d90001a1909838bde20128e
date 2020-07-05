@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class NMmain {
+	static int list[];
+	static boolean check[];
+	static int M, N;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc =new Scanner (System.in);
+		System.out.print("N 입력: ");
+		N=sc.nextInt();
+		System.out.print("M 입력: ");
+		M=sc.nextInt();
+		
+		list= new int[N];
+		check = new boolean[N];
+		
+		dfs(0);
+	}
+
+	static void dfs(int cnt) {
+		if(M==cnt) {
+			for(int j=0; j<M; j++)
+				System.out.print(list[j]+" ");
+			System.out.println();
+			return;
+		}
+		for(int i=1; i<=N; i++) {
+			if(check[i-1])
+				continue;
+			list[cnt]= i;
+			check[i-1]= true;
+			dfs(cnt+1);	
+			check[i-1]=false;			
+		}
+		System.out.println("hi");
+	}
+}
+
+
+
+/////////////
+
+//int(int depth, int dix)
+//for(i=0)//순열
+//for(i=dix)// 조합
+//idx// for(i=idx)

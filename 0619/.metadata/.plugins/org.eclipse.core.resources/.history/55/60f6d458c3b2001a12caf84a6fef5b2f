@@ -1,0 +1,57 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Stack;
+
+public class Main {
+	static String S;
+	static Stack<Integer> l_stack = new Stack<Integer>();
+	static Stack<Integer> r_stack = new Stack<Integer>();
+	static ArrayList<Character> list = new ArrayList<Character>();
+	static int ans;
+	
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		S = br.readLine();
+		
+		for(int i=0; i<S.length(); i++) {
+			list.add(S.charAt(i));
+			
+			if(S.charAt(i)=='(') {
+				l_stack.push(i);
+			}
+			else if(S.charAt(i)==')') {
+				r_stack.push(i);
+			}
+		}
+		
+		func();
+		
+		System.out.println(ans);
+	}
+	
+	static void func() {
+		int left;
+		char K;
+		String Q;
+		
+		for(int right : r_stack) {
+			left= l_stack.pop();
+			
+			K = S.charAt(left-1);
+			Q= S.substring(left, right);
+			
+			
+			
+			list.remove(left);
+			list.remove(left-1);
+			list.remove(right-1);
+			//System.out.println(n);
+			
+		}
+	}
+	
+	
+}

@@ -1,0 +1,54 @@
+package NM3;
+
+import java.util.Scanner;
+
+public class NMmainThree {
+	static int N, M;
+	static int list[];
+
+	public static void main(String[] args) {
+		long startTime = System.currentTimeMillis();
+        
+		// 수행작업
+		
+		Scanner sc = new Scanner(System.in);
+		String str = "";
+		str = sc.nextLine();
+		String[] input = str.split(" ");
+
+		N = Integer.parseInt(input[0]);
+		M = Integer.parseInt(input[1]);
+
+		list = new int[N];
+
+		dfs(0);
+		
+		
+		// End time
+		long endTime = System.currentTimeMillis();
+		         
+		// Total time
+		long lTime = endTime - startTime;
+		System.out.println("TIME : " + lTime + "(ms)");
+
+
+		
+
+	}
+
+	static void dfs(int cnt) {
+		if (M == cnt) {
+			for (int j = 0; j < M; j++)
+				System.out.print(list[j] + " ");
+			System.out.println();
+			return;
+		}
+		
+		for (int i = 1; i <= N; i++) {
+			list[cnt] = i;
+			dfs(cnt + 1);
+			
+		}
+	}
+
+}

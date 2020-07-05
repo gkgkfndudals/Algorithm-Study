@@ -1,0 +1,51 @@
+package NM2;
+
+import java.util.Scanner;
+
+public class NMmainTwo {
+	
+	static int N, M;
+	static int list[];
+	static boolean check[];
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc =new Scanner(System.in);
+		String str = "";
+		str= sc.nextLine();
+		String[] input = str.split(" ");
+				    		
+		N = Integer.parseInt(input[0]);
+		M = Integer.parseInt(input[1]);
+		
+		
+		list= new int[N];
+		check = new boolean[N];
+		
+		dfs(0);
+	}
+	
+	static void dfs(int cnt) {
+		if(M==cnt) {
+			for(int i=0; i<M; i++) 
+				System.out.print(list[i] + " ");
+			System.out.println();
+			return;
+		}
+		
+		for(int j=1; j<=N; j++) {
+			if(cnt==0) {
+				for(int k=j; k<=check.length; k++)
+					check[k-1]=false;
+			}
+				
+			if(check[j-1])
+				continue;
+			list[cnt] = j;
+			check[j-1] = true;
+			dfs(cnt+1);
+			
+		}
+	}
+
+}
