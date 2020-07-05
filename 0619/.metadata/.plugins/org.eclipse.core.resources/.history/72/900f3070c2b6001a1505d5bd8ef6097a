@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+	static int N;
+	static String input;
+	static int max = Integer.MIN_VALUE;
+	static int num[];
+	static char op[];
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = br.read();
+		input = br.readLine();
+
+		for(int i=0; i<input.length(); i++) {
+			if(input.charAt(i) == '*' || input.charAt(i)=='+' || input.charAt(i)=='-') {
+				op[i] = input.charAt(i);
+			} else {
+				num[i]= input.charAt(i)-'0';
+			}
+		}
+	}
+
+	void solve(int result, int nowOpIdx){
+	    if(nowOpIdx >= op.size()){
+	        if(max < result)
+	            max = result;
+	        return;
+	    }
+	    long long res1 = calc(ops[nowOpIdx], result, nums[nowOpIdx+1]);
+	    solve(res1, nowOpIdx+1);
+	    
+	    if(nowOpIdx+1 < ops.size()){
+	        long long res2 = calc(ops[nowOpIdx+1], nums[nowOpIdx+1], nums[nowOpIdx+2]);
+	        solve(calc(ops[nowOpIdx],result,res2), nowOpIdx+2);
+	    }
+	}
+
+	
+	static int cal(int a, char op, int b) {
+		if (op == '+')	return a + b;
+		else if (op == '-')	return a - b;
+		else return a * b;
+	}
+}

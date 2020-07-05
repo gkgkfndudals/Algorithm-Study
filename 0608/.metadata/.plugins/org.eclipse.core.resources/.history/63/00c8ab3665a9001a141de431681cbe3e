@@ -1,0 +1,75 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
+
+
+
+public class Main {
+	static int N, M;
+	static HashMap<String, Integer> map = new HashMap<String, Integer>();
+	static HashMap<String, Integer> resultMap = new HashMap<String, Integer>();
+	static int ans=0;
+	
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+
+		for (int i = 0; i < N + M; i++) {
+			String s = br.readLine();
+			if (map.containsKey(s)) {
+				map.put(s, map.get(s) + 1);
+			} else {
+				map.put(s, 1);
+			}
+		}
+		
+		TreeMap<String, Integer> tm = new TreeMap<String,Integer>(map); 
+		//Set<String> keyset = map.keySet(); 
+		Iterator<String> keyiterator = tm.keySet( ).iterator( ); //키값 오름차순 정렬
+
+		
+		for( String key : map.keySet() ){
+			if(map.get(key) != 1) {
+				ans++;
+				System.out.println(key);
+			}
+        }
+		
+		System.out.println(ans);
+
+
+		
+
+	}
+	
+	public static List<String> sortByValue(HashMap<String, Integer> map) {
+	    List<String> list = new ArrayList<String>();
+	    list.addAll(map.keySet());
+
+	    Collections.sort(list, new Comparator<String>() {
+	        public int compare(String o1, String o2) {
+	            int v1 = map.get(o1);
+	            int v2 = map.get(o2);
+	            return ((Comparable<Integer>) v1).compareTo(v2);
+	        }
+	    });
+
+	    return list;
+	}	
+
+}

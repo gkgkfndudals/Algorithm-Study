@@ -1,0 +1,109 @@
+import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Ex2 {
+	static int T, W, H;
+	static char map[][];
+	static boolean visit[][];
+	static Queue<Point> fire_q;
+	static Queue<Point> person_q;
+	static int dir_x[] = { 0, -1, 0, 1 };
+	static int dir_y[] = { -1, 0, 1, 0 };
+	static int ans;
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		StringBuilder sb = new StringBuilder();
+
+		T = Integer.parseInt(st.nextToken());
+
+		for (int k = 0; k < T; k++) {
+			st = new StringTokenizer(br.readLine());
+			W = Integer.parseInt(st.nextToken()); // 너비
+			H = Integer.parseInt(st.nextToken()); // 높이
+			map = new char[H][W];
+			visit = new boolean[H][W];
+			ans = 1;
+			fire_q = new LinkedList<Point>();
+			person_q = new LinkedList<Point>();
+
+			for (int i = 0; i < H; i++) {
+				String s = br.readLine();
+				for (int j = 0; j < W; j++) {
+					map[i][j] = s.charAt(j);
+					if (map[i][j] == '*') {
+						fire_q.offer(new Point(i, j));
+						visit[i][j] = true;
+					} else if (map[i][j] == '@') {
+						person_q.offer(new Point(i, j));
+					}
+				}
+			}
+
+			bfs();
+
+			sb.append(ans).append("\n");
+		}
+
+		System.out.println(sb.toString());
+
+	}
+//////////////////////////////////////////////////////////////////////
+
+	static void bfs() {
+		while (!person_q.isEmpty()) {
+			///////////////////// 불 bfs////////////////////////////////
+			int fire_size = fire_q.size();
+
+			for (int len = 0; len < fire_size; len++) {
+				Point p = fire_q.poll();
+
+				for (int i = 0; i < 4; i++) {
+					int nx = p.x + dir_x[i];
+					int ny = p.y + dir_y[i];
+
+					if (nx >= 0 && ny >= 0 && nx < H && ny < W) {
+						if (!visit[nx][ny] && map[nx][ny] != '#') {
+							map[nx][ny] = '*';
+							visit[nx][ny] = true;
+							fire_q.offer(new Point(nx, ny));
+						}
+					}
+				}
+
+			}
+
+			////////////////////// 사람 bfs///////////////////////////////
+			ans++;
+			
+			int person_size = person_q.size();
+
+			for (int len = 0; len < person_size; len++) {
+				Point p = person_q.poll();
+
+				for (int i = 0; i < 4; i++) {
+					int nx = p.x + dir_x[i];
+					int ny = p.y + dir_y[i];
+					if (!visit[nx][ny] && map[nx][ny] == '.' && (nx == 0 || ny == 0 || nx == H - 1 || ny == W - 1)) {
+						return;
+					}
+					if (nx >= 0 && ny >= 0 && nx < H && ny < W) {
+						if (map[nx][ny] == '.') {
+							map[nx][ny] = '@';
+							person_q.offer(new Point(nx, ny));
+						}
+					}
+				}
+			}
+		}
+		// return -1;
+	}
+
+}

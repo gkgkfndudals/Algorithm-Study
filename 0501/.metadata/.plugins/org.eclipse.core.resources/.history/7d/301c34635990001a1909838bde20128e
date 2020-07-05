@@ -1,0 +1,38 @@
+package NM3;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class NMmainThree {
+	static int N, M;
+	static int list[];
+	public static void main(String[] args) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String str = "";
+		
+		String[] input = str.split(" ");
+
+		N = Integer.parseInt(input[0]);
+		M = Integer.parseInt(input[1]);
+
+		list = new int[N];
+		dfs(0);
+	}
+
+	static void dfs(int cnt) {
+		if (M == cnt) {
+			for (int j = 0; j < M; j++)
+				System.out.print(list[j] + " ");
+			System.out.println();
+			return;
+		}
+
+		for (int i = 1; i <= N; i++) {
+			list[cnt] = i;
+			dfs(cnt + 1);
+
+		}
+	}
+
+}
