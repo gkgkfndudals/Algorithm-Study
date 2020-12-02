@@ -1,0 +1,55 @@
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+/**
+ * 중복x 순열
+ */
+
+public class Main {
+	static int N, M;
+	static int arr[];
+	static boolean check[];
+	static StringBuilder sb = new StringBuilder();
+	
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st= new StringTokenizer(br.readLine());
+		
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		
+		arr= new int[N];
+		check = new boolean[N];
+		
+		sol(0);
+		
+		System.out.println(sb.toString());
+		br.close();
+		
+	}
+	
+	public static void sol(int depth) {
+		if(depth==M) {
+			for(int i=0; i<M ; i++) {
+				sb.append(arr[i]).append(" ");
+			}
+			sb.append("\n");
+			return ;
+		}
+		
+		for(int i=1; i<=N; i++) {
+			if(!check[i-1]) {
+				arr[depth]=i;
+				check[i-1]=true;
+				sol(depth+1);
+				check[i-1]=false;
+			}
+		}
+		
+	}
+
+}
